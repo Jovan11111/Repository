@@ -45,6 +45,12 @@ public class Stack {
 	
 	// Setter for the name of the stack
 	public void setName(String newName) {this.name = newName;}
+	
+	// Returns true if the stack is empty
+	public boolean stackEmpty() {return sp == 0;}
+	
+	// Returns false if the stack is full;
+	public boolean stackFull() {return sp == this.getSize() -1;}
 
 	// Textual representation of the stack
 	@Override

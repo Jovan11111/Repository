@@ -1,6 +1,7 @@
 package asp_library;
 
 import Exceptions.StructureEmptyException;
+import Exceptions.StructureFullException;
 
 public class Queue {
 	private int front;
@@ -35,16 +36,33 @@ public class Queue {
 	public void setName(String newName) {this.name = newName;}
 	
 	// Inserting an element into the queue
-	public void insert(int number) {}
+	public void insert(int number) throws StructureFullException {
+		this.rear = this.rear % this.size + 1;
+		if(this.rear == this.front) throw new StructureFullException("Queue is full");
+		queue[rear] = number;
+		if(this.front == 0) this.front = 1;
+	}
 	
 	// Deleting an element from the queue
 	public int delete() throws StructureEmptyException{
-		if(rear == front) throw new StructureEmptyException("Queue is empty");
-		
-		return 0;
+		if(front == 0) throw new StructureEmptyException("Queue is empty");
+		int x = queue[front];
+		if(front == rear) front = rear = 0;
+		else front = front % size + 1;
+		return x;
 	}
 	
+	//Textual representation of the queue
+	@Override
+	public String toString() {
+		String str = this.name + ": ";
+		int x = front;
+		while(x != rear) {
+			str += queue[x] + " ";
+			x = x % this.size + 1;
+		}
+		str+= queue[rear];
+		return str;
+	}
 	
-	
-
 }
